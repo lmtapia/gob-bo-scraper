@@ -21,3 +21,8 @@ async def details(url:str):
     res = scraper.between_h2(url)
     return { "details": res}
 
+@app.get("/category/{url:path}")
+async def by_category(url:str):
+    url = unquote(url)
+    res = scraper.links(url)
+    return { "links": res}

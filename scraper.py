@@ -1,5 +1,7 @@
+import re
 import requests
 from bs4 import BeautifulSoup
+
 
 def between_h2(url):
     soup = BeautifulSoup(requests.get(url).content, 'html.parser')
@@ -20,7 +22,9 @@ def between_h2(url):
                 current_header = tag.text
             else:
                 out.setdefault(current_header, '')
-                out[current_header] += tag.get_text(strip=False)
+                pattern=re.compile("([\ ]{2,})")
+                text = re.sub(pattern,' ',str(tag.get_text(strip=False)))
+                out[current_header] += text
     return out
 def h2(url):
     soup = BeautifulSoup(requests.get(url).content, 'html.parser')
@@ -33,3 +37,5 @@ def h2(url):
     tags = soup.find_all('h2')
     out = list(map(lambda tag: tag.text, tags))
     return out
+
+    
