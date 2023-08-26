@@ -1,0 +1,4 @@
+beautifulsoup4
+pprint3x
+fastapi==0.95.0
+requests
